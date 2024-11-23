@@ -181,7 +181,7 @@ static struct PyModuleDef convolve_module = {
     ConvolveMethods
 };
 
-PyMODINIT_FUNC PyInit_convolve(void) {
+PyMODINIT_FUNC PyInit_conv2d(void) {
     import_array();
     return PyModule_Create(&convolve_module);
 }

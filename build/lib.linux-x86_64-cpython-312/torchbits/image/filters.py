@@ -1,5 +1,5 @@
 import importlib
-import torchbits.conv2d
+from torchbits.conv2d import convolve
 from typing import Tuple, Union, Optional
 
 try:
@@ -146,7 +146,7 @@ def median_filter(image: xp.ndarray, kernel_size: int = 3) -> xp.ndarray:
 
 def gaussian_blur(image: xp.ndarray) -> xp.ndarray:
     kernel = xp.array([[1, 2, 1], [2, 4, 2], [1, 2, 1]]) / 16
-    return torchbits.conv2d.convolve(image, kernel)
+    return convolve(image, kernel)
 
 
 def box_filter(image: xp.ndarray,kernel_size:int) -> xp.ndarray:
@@ -158,16 +158,16 @@ def box_filter(image: xp.ndarray,kernel_size:int) -> xp.ndarray:
     h,w = image.shape[0],image.shape[1]
     norm_const = 1/(h * w)
     box_kernel = norm_const * box_kernel
-    return torchbits.conv2d.convolve(image,box_kernel)
+    return convolve(image,box_kernel)
 
 
 def laplacian_filter(image: xp.ndarray) -> xp.ndarray:
     kernel = xp.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]])
-    return torchbits.conv2d.convolve(image, kernel)
+    return convolve(image, kernel)
 
 
 def custom_filter(image: xp.ndarray,kernel: xp.ndarray) -> xp.ndarray:
-    return torchbits.conv2d.convolve(image,kernel)
+    return convolve(image,kernel)
 
 
 def pad_image(image, pad_size):
