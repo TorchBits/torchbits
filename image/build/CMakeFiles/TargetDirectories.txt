@@ -1,0 +1,3 @@
+/home/ace/Downloads/torchbit/torchbit/image/build/CMakeFiles/convolution_module.dir
+/home/ace/Downloads/torchbit/torchbit/image/build/CMakeFiles/edit_cache.dir
+/home/ace/Downloads/torchbit/torchbit/image/build/CMakeFiles/rebuild_cache.dir
