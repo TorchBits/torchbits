@@ -99,7 +99,7 @@ conv2d_ext = Extension(  # Renamed for clarity
 #             raise
 
 # Ensure the package structure exists
-packages = ['image', 'lib']
+packages = ['torchbits.image', 'torchbits.lib']
 for package in packages:
     os.makedirs(package.replace('.', '/'), exist_ok=True)
 
