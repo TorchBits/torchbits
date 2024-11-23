@@ -1,3 +1,2 @@
 include src/cpp/*.cpp
 include src/cpp/*.h
-include torchbits/lib/libmatrix_multiply.*

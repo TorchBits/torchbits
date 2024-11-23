@@ -1,5 +1,5 @@
 import importlib
-from . import convolution_module
+from .conv2d import convolve
 from typing import Tuple, Union, Optional
 
 try:
@@ -144,19 +144,12 @@ def median_filter(image: xp.ndarray, kernel_size: int = 3) -> xp.ndarray:
             result[i, j] = xp.median(neighborhood)
     return result
 
-def gaussian_blur(image: xp.ndarray,conv_type:int=1) -> xp.ndarray:
+def gaussian_blur(image: xp.ndarray) -> xp.ndarray:
     kernel = xp.array([[1, 2, 1], [2, 4, 2], [1, 2, 1]]) / 16
-    kernel_flat = kernel.flatten()
-    if conv_type == 1:
-        conv_type = convolution_module.ConvolutionType.NAIVE
-    elif conv_type == 2:
-        conv_type = convolution_module.ConvolutionType.VECTORIZED
-    else: conv_type = convolution_module.ConvolutionType.SMART
-
-    return convolution_module.convolution_dispatcher(image, kernel_flat,conv_type)
+    return convolve(image, kernel)
 
 
-def box_filter(image: xp.ndarray,kernel_size:int, conv_type:int=1) -> xp.ndarray:
+def box_filter(image: xp.ndarray,kernel_size:int) -> xp.ndarray:
     if kernel_size % 2 == 0:
         raise ValueError("Kernel size must be odd.")
 
@@ -165,12 +158,7 @@ def box_filter(image: xp.ndarray,kernel_size:int, conv_type:int=1) -> xp.ndarray
     h,w = image.shape[0],image.shape[1]
     norm_const = 1/(h * w)
     box_kernel = norm_const * box_kernel
-    if conv_type == 1:
-        conv_type = convolution_module.ConvolutionType.NAIVE
-    elif conv_type == 2:
-        conv_type = convolution_module.ConvolutionType.VECTORIZED
-    else: conv_type = convolution_module.ConvolutionType.SMART
-    return convolution_module.convolution_dispatcher(image,box_kernel,conv_type)
+    return convolve(image,box_kernel)
 
 
 def laplacian_filter(image: xp.ndarray) -> xp.ndarray:
@@ -178,13 +166,8 @@ def laplacian_filter(image: xp.ndarray) -> xp.ndarray:
     return convolve(image, kernel)
 
 
-def custom_filter(image: xp.ndarray,kernel: xp.ndarray,conv_type:int) -> xp.ndarray:
-    if conv_type == 1:
-        conv_type = convolution_module.ConvolutionType.NAIVE
-    elif conv_type == 2:
-        conv_type = convolution_module.ConvolutionType.VECTORIZED
-    else: conv_type = convolution_module.ConvolutionType.SMART
-    return convolution_module.convolution_dispatcher(image,kernel,conv_type)
+def custom_filter(image: xp.ndarray,kernel: xp.ndarray) -> xp.ndarray:
+    return convolve(image,kernel)
 
 
 def pad_image(image, pad_size):

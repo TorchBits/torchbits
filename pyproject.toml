@@ -3,7 +3,8 @@ requires = [
     "setuptools>=42",
     "wheel",
     "numpy",
-    "cupy",
+    "pkgconfig",
+    "pybind11>=2.6.0" ,
     "pillow"
 ]
 build-backend = "setuptools.build_meta"
